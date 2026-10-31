@@ -1,0 +1,29 @@
+(function() {
+
+    // HR Manager Access
+    if (gs.hasRole('hr_manager')) {
+        answer = true;
+    }
+
+    // Employee can access own record
+    else if (
+        current.u_assigned_to.toString() == gs.getUserID()
+    ) {
+        answer = true;
+    }
+
+    // IT Manager can access own department records
+    else if (
+        gs.hasRole('it_manager') &&
+        current.u_department.toString() ==
+        gs.getUser().getDepartmentID()
+    ) {
+        answer = true;
+    }
+
+    // Deny unauthorized users
+    else {
+        answer = false;
+    }
+
+})();
